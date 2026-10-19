@@ -35,3 +35,14 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     HTTPServer(("0.0.0.0", 8000), Handler).serve_forever()
 # 할인 규칙 메모
+
+
+def shipping_fee(total, region):
+    """지역별 배송비"""
+    if region == "jeju":
+        return 5000
+    if region == "island":
+        return 7000
+    if total >= 50000:
+        return 0
+    return 3000
