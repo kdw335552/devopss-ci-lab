@@ -13,7 +13,7 @@ def order_total(prices, coupon=None):
         subtotal = subtotal * 0.9
     elif coupon == "FLAT3000":
         subtotal = subtotal - 3000
-    return max(int(subtotal), 0)
+    return int(subtotal)
 
 
 class Handler(BaseHTTPRequestHandler):
