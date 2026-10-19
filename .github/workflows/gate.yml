@@ -16,7 +16,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         python: ["3.11", "3.12"]
     steps:
