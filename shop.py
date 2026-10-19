@@ -1,4 +1,5 @@
 """DevOps 과목 예제 앱 — 주문 금액 계산 + 아주 작은 HTTP 서버(표준 라이브러리만)"""
+import sys
 import json
 import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -35,3 +36,7 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     HTTPServer(("0.0.0.0", 8000), Handler).serve_forever()
 # 할인 규칙 메모
+
+
+def refund(amount):
+    return amount - fee
