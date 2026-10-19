@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 110
+[tool.ruff.lint]
+select = ["E", "F", "B"]        # 문법·이름 오류(F), 스타일(E), 흔한 버그 패턴(B)
+[tool.coverage.run]
+source = ["."]
+omit = ["test_*.py"]
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+exclude_also = ["if __name__ == .__main__.:"]
