@@ -1,0 +1,36 @@
+name: ci-newver
+# 2026-10-19 분기 점검: 액션 새 주판(v7) + ubuntu-24.04 / ubuntu-26.04 비교 (ubuntu-latest는 10-19~11-19에 26.04로 옮겨 감)
+on:
+  push:
+    branches: ["newver-*"]
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-26.04]
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - name: 의존성 설치
+        run: |
+          start=$(date +%s); pip install -q -r requirements-dev.txt
+          echo "pip 설치 $(( $(date +%s) - start ))초 · $(python -V) · $(lsb_release -ds)"
+      - name: 테스트
+        run: |
+          coverage run -m pytest -q --junitxml=report.xml
+          coverage report | tail -1
+      - uses: actions/upload-artifact@v7
+        with:
+          name: report-${{ matrix.os }}-${{ matrix.python }}
+          path: report.xml
+  latest:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ubuntu-latest 오늘은 → $(lsb_release -ds)"
