@@ -27,3 +27,11 @@ def test_http_server():
     assert json.load(urllib.request.urlopen(base + "/healthz"))["status"] == "ok"
     assert json.load(urllib.request.urlopen(base + "/"))["total"] == 18000
     srv.shutdown()
+
+
+def test_shipping_fee():
+    from shop import shipping_fee
+    assert shipping_fee(10000, "jeju") == 5000
+    assert shipping_fee(10000, "island") == 7000
+    assert shipping_fee(60000, "seoul") == 0
+    assert shipping_fee(10000, "seoul") == 3000
