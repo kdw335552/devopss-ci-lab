@@ -34,3 +34,4 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     HTTPServer(("0.0.0.0", 8000), Handler).serve_forever()
+# 할인 규칙 메모
